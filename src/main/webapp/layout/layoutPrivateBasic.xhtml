@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	@version     1.0.0
+	@author      Edivando J. Alves
+	@contact     edivando@j7ss.com ( http://www.j7ss.com )
+	
+	@copyright Copyright 2010 - 2016 J7 Smart Solutions, all rights reserved. 
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="#{localeBean.locale}" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html">
+<h:head class="header fixed-top clearfix">
+	<ui:include src="/template/templatePageHeader.xhtml" />
+</h:head>
+<h:body styleClass="full-width">
+	<section id="container" >
+		<ui:include src="/template/private/templateMenuTop.xhtml" /> 
+		<!-- <ui:include src="/template/private/templateMenuLateral.xhtml" /> -->
+	
+	    <section id="main-content">
+	        <section class="wrapper">
+	       		
+	       		<h:form id="formAll">
+	       			<div class="row">
+		                <div class="col-md-12">
+		                    <ul class="breadcrumb">
+		                        <li><a href="#{loginBean.homeLink}"><i class="fa fa-home"></i> Home</a></li>
+		                        <li class="active"><a href="#{headerLink}">#{headerTitle}</a></li>
+		                    </ul>
+		                </div>
+		            </div>
+					<p:growl id="growl" showDetail="true" globalOnly="true" escape="false"  />
+					<p:messages id="messages" for="messages" showDetail="false" showSummary="true" closable="true" />
+					
+				    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" >
+				        <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				    </p:confirmDialog>
+					
+					<p:dataTable id="#{id}Table" var="entity" value="#{view.entitys}" widgetVar="#{id}Var"
+						paginator="true" rows="20" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						emptyMessage="#{emptyMessage}" rendered="#{!view.form}" resizableColumns="true" paginatorPosition="top">
+					
+						<p:column width="40" rendered="#{rowToggler}" >
+			            	<p:rowToggler/>
+			        	</p:column>
+					
+						<p:column width="100" styleClass="text-center" rendered="#{btnEdit or btnRemove}" >
+							<f:facet name="header">
+								<p:commandLink update="@form" actionListener="#{view.form}" styleClass="btn btn-primary" rendered="#{!view.form and btnNew}">
+									<f:setPropertyActionListener target="#{view.entity}" value=""/>
+									<i class="fa fa-plus" />
+						 			Novo
+								</p:commandLink>
+							</f:facet>
+						
+			 				<p:commandLink update="@form" actionListener="#{view.form}" styleClass="btn btn-white" rendered="#{btnEdit}" >
+					 			<f:setPropertyActionListener target="#{view.entity}" value="#{entity}"/>
+					 			<i class="fa fa-edit text-info" />
+							</p:commandLink>
+							&nbsp;
+							<p:commandLink actionListener="#{view.remove(entity)}" update=":formAll" styleClass="btn btn-white" rendered="#{btnRemove}" >
+								<i class="fa fa-trash-o text-danger" />
+						        <p:confirm header="Confime" message="Deseja realmente excluir?" icon="ui-icon-alert" />
+						    </p:commandLink>
+						</p:column>
+						
+						<ui:insert name="contentGrid" />
+					</p:dataTable>
+		
+					<p:panel id="formPanel" rendered="#{view.form}" styleClass="form-horizontal">
+						<p:focus />
+						<f:facet name="header">
+							<span class="lead">
+								<i class="fa #{headerIcon}"/> #{formTitle}
+							</span>
+							<p:commandLink  action="#{view.grid}" update=":formAll" styleClass="pull-right btn btn-danger btn-sm" immediate="true"
+								rendered="#{btnBack}" >
+								<i class="fa fa-reply-all" />
+								Back
+							</p:commandLink>
+							<p:commandLink  action="#{view.save}" update=":formAll" styleClass="pull-right btn btn-info btn-sm"
+								style="margin-right: 10px;" rendered="#{btnSave}" >
+								<i class="fa fa-save" />
+								Salvar
+							</p:commandLink>
+							<ui:insert name="headerFormButton" />
+						</f:facet>
+						
+						<ui:insert name="contentForm" />
+					</p:panel>
+				</h:form>
+	        </section>
+	    </section>
+	</section>
+
+	<h:form>
+		<p:remoteCommand name="logoff" action="#{loginBean.logoff}" />
+	</h:form>
+	<ui:include src="/module/moduleDialogMudarSenha.xhtml"/>
+	<ui:include src="/template/templateIncludeJS.xhtml" />
+</h:body>
+</f:view>
+</html>

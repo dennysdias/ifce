@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	@version     1.0.0
+	@author      Edivando J. Alves
+	@contact     edivando@j7ss.com ( http://www.j7ss.com )
+	
+	@copyright Copyright 2010 - 2016 J7 Smart Solutions, all rights reserved. 
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+	<aside>
+	    <div id="sidebar" class="nav-collapse">
+	        <div class="leftside-navigation">
+	        
+	        	<!-- Menu Administrador -->
+	        	<p:outputPanel rendered="#{loginBean.usuario.tipoUsuario == 'ADMINISTRADOR'}">
+	        		<ul class="sidebar-menu" id="nav-accordion">
+						<li>
+			                <a href="aluno.html">
+			                    <i class="fa fa-user"></i>
+			                    <span>Alunos</span>
+			                </a>
+			            </li>
+						<li>
+			                <a href="documento.html">
+			                    <i class="fa fa-user"></i>
+			                    <span>Documento</span>
+			                </a>
+			            </li>
+			            <li>
+			                <a href="instituicao.html">
+			                    <i class="fa fa-user"></i>
+			                    <span>Instituíções</span>
+			                </a>
+			            </li>
+			            <li>
+			                <a href="empresa.html">
+			                    <i class="fa fa-user"></i>
+			                    <span>Empresas</span>
+			                </a>
+			            </li>
+			            <li>
+			                <a href="vaga_estagio.html">
+			                    <i class="fa fa-user"></i>
+			                    <span>Vagas de Estágio</span>
+			                </a>
+			            </li>
+			            <li>
+			                <a href="usuario.html">
+			                    <i class="fa fa-user"></i>
+			                    <span>Usuários</span>
+			                </a>
+			            </li>
+		        	</ul>
+	        	</p:outputPanel>
+	        	
+	        	<!-- Menu Instituicao -->
+	        	<p:outputPanel rendered="#{loginBean.usuario.tipoUsuario == 'INSTITUICAO'}">
+	        		<ul class="sidebar-menu" id="nav-accordion">
+			            <li>
+			                <a href="#">
+			                    <i class="fa fa-user"></i>
+			                    <span>Ofertar Estágio</span>
+			                </a>
+			            </li>
+			            <li>
+			                <a href="#">
+			                    <i class="fa fa-user"></i>
+			                    <span>Pesquisar Estagiários</span>
+			                </a>
+			            </li>
+		        	</ul>
+	        	</p:outputPanel>
+	        	
+	        	<!-- Menu Aluno -->
+	        	<p:outputPanel rendered="#{loginBean.usuario.tipoUsuario == 'ALUNO'}">
+	        		<ul class="sidebar-menu" id="nav-accordion">
+			            <li>
+			            	<a href="perfil.html">
+			            		<i class="fa fa-user"></i>
+			            		<span>Meu Perfil</span>
+			            	</a>
+			            </li>
+			            <li>
+			            	<a href="#">
+			            		<i class="fa fa-user"></i>
+			            		<span>Vagas de Estágio</span>
+			            	</a>
+			            </li>
+			            <li class="sub-menu">
+			                <a href="javascript:;">
+			                    <i class="fa fa-folder-open"></i>
+			                    <span>Documentos</span>
+			                </a>
+			                <ul class="sub">
+			                    <li>
+			                    	<a href="termoCompromisso.html">
+			                    		<i class="fa fa-file-text"></i>
+			                    		<span>Termo de compromisso</span>
+			                		</a> 
+			                	</li>
+			                    <li>
+			                    	<a href="relatorioMensal.html">
+			                    		<i class="fa fa-file-text"></i>
+			                    		<span>Relatorio Mensal</span>
+			                		</a> 
+			                	</li>
+			                	<li>
+			                    	<a href="#">
+			                    		<i class="fa fa-file-text"></i>
+			                    		<span>Relatorio Final</span>
+			                		</a> 
+			                	</li>
+			                </ul>
+			            </li>
+			        </ul>
+	        	</p:outputPanel>
+	       </div>        
+	    </div>
+	</aside>
+</ui:composition>
+</html>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	@version     1.0.0
+	@author      Edivando J. Alves
+	@contact     edivando@j7ss.com ( http://www.j7ss.com )
+	
+	@copyright Copyright 2010 - 2016 J7 Smart Solutions, all rights reserved. 
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition template="/layout/layoutPrivateBasic.xhtml">
+	<ui:define name="title">IFCE Estágios - Documentos</ui:define>
+	
+	<ui:param name="id" value="documento" />
+	<ui:param name="view" value="#{adminDocumentoBean}" />
+	<ui:param name="headerIcon" value="fa-book" />
+	<ui:param name="headerTitle" value="Documentos" />
+	<ui:param name="headerLink" value="adminDocumento.html" />
+	<ui:param name="formTitle" value="Documento" />
+	<ui:param name="emptyMessage" value="Nenhum documento cadastrado!" />
+	<ui:param name="btnNew" value="true" />
+	<ui:param name="btnBack" value="true" />
+	<ui:param name="btnSave" value="true" />
+	<ui:param name="btnEdit" value="true" />
+	<ui:param name="btnRemove" value="true" />
+	
+	<ui:define name="contentGrid">
+		<p:column headerText="Obrigatório" width="100" styleClass="text-center">
+			<span class="label #{entity.obrigatorio ? 'label-primary' : 'label-danger'}">#{entity.obrigatorio ? "Sim" : "Não"}</span>
+		</p:column>
+		<p:column headerText="Extra" width="100" styleClass="text-center">
+			<span class="label #{entity.extra ? 'label-primary' : 'label-danger'}">#{entity.extra ? "Sim" : "Não"}</span>
+		</p:column>
+		<p:column headerText="Nome">
+			#{entity.nome}
+		</p:column>
+		<p:column headerText="Título">
+			#{entity.titulo}
+		</p:column>
+	</ui:define>
+	<ui:define name="contentForm">
+		<div class="form-group">
+			<label for="inputNome" class="col-sm-2 control-label"><strong>Nome:</strong></label>
+			<div class="col-sm-8">
+				<p:inputText id="inputNome" value="#{adminDocumentoBean.entity.nome}" placeholder="Nome que identifique esse documento." styleClass="form-control" 
+					required="true" requiredMessage="Item obrigatório!" />
+			</div>
+			<div class="col-sm-2">
+				<p:message for="inputNome"  />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputTitulo" class="col-sm-2 control-label"><strong>Título:</strong></label>
+			<div class="col-sm-8">
+				<p:inputText id="inputTitulo" value="#{adminDocumentoBean.entity.titulo}" placeholder="Este item será exibido para o aluno." styleClass="form-control" 
+					required="true" requiredMessage="Item obrigatório!" />
+			</div>
+			<div class="col-sm-2">
+				<p:message for="inputTitulo"  />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputDescricao" class="col-sm-2 control-label"><strong>Descrição:</strong></label>
+			<div class="col-sm-8">
+				<p:inputTextarea id="inputDescricao" value="#{adminDocumentoBean.entity.descricao}" placeholder="Descreva o porque, e para que server este documento." styleClass="form-control" 
+					required="true" requiredMessage="Item obrigatório!" rows="3"/>
+			</div>
+			<div class="col-sm-2">
+				<p:message for="inputDescricao"  />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputObrigatorio" class="col-sm-2 control-label"><strong>Documento Extra:</strong></label>
+			<div class="col-sm-8">
+				<p:selectBooleanButton id="inputObrigatorio" value="#{adminDocumentoBean.entity.extra}" onLabel="Sim" offLabel="Não" 
+					onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
+				<p class="help-block">Se o documento não for obrigatório para a coclusão do estágio, ele é um documento extra.</p>
+			</div>
+			<div class="col-sm-2">
+				<p:message for="inputObrigatorio"  />
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="inputEstagioObrigatorio" class="col-sm-2 control-label"><strong>Obrigatório:</strong></label>
+			<div class="col-sm-8">
+				<p:selectBooleanButton id="inputEstagioObrigatorio" value="#{adminDocumentoBean.entity.obrigatorio}" onLabel="Sim" offLabel="Não" 
+					onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:60px" />
+				<p class="help-block">Se o estágio for obrigatório, este item deve ser marcado.</p>
+			</div>
+			<div class="col-sm-2">
+				<p:message for="inputEstagioObrigatorio"  />
+			</div>
+		</div>
+	
+	   	<div class="form-group">  <!-- 2480x3508 --> 
+	   		<div class="col-md-2">
+	   			<h4 class="text-center">Usuário</h4>
+	   			<h:outputFormat value="#{documentoKeyBean.usuario}"  escape="false"/>
+	   			<hr/>
+	   			<h4 class="text-center">Aluno</h4>
+	   			<h:outputFormat value="#{documentoKeyBean.aluno}"  escape="false"/>
+	   			<hr/>
+	   			<h4 class="text-center">Vaga Estágio</h4>
+	   			<h:outputFormat value="#{documentoKeyBean.vagaEstagio}"  escape="false"/>
+	   			<hr/>
+	   			<h4 class="text-center">Empresa</h4>
+	   			<h:outputFormat value="#{documentoKeyBean.empresa}"  escape="false"/>
+	   			<hr/>
+	   			<h4 class="text-center">Instituição</h4>
+	   			<h:outputFormat value="#{documentoKeyBean.instituicao}"  escape="false"/>
+	   			<hr/>
+	   			<h4 class="text-center">Campus</h4>
+	   			<h:outputFormat value="#{documentoKeyBean.campus}"  escape="false"/>
+	   			<hr/>
+	   			<h4 class="text-center">Departamento</h4>
+	   			<h:outputFormat value="#{documentoKeyBean.departamento}"  escape="false"/>
+	   			<hr/>
+	   			<h4 class="text-center">Curso</h4>
+	   			<h:outputFormat value="#{documentoKeyBean.curso}"  escape="false"/>
+	   		</div>
+	   		<div class="col-md-8">
+	   			 <p:tabView id="tabView" scrollable="true">
+	   			 	<p:ajax event="tabChange" process="inputHtmlPage" update="pageHtmlOutput"/>
+			        <p:tab title="&nbsp;&nbsp;Editar Documento" titleStyle="width:200px;">
+			        	<h:panelGrid columns="1" width="100%">
+			           		<p:inputTextarea id="inputHtmlPage" value="#{adminDocumentoBean.entity.htmlPage}" rows="60" styleClass="col-md-12"/>
+			           	</h:panelGrid>
+			        </p:tab>
+			        <p:tab title="&nbsp;&nbsp;Preview" titleStyle="width:200px;">
+			        	<p:commandLink type="button" styleClass="btn btn-warning pull-right btn-sm" >
+					   		<i class="fa fa-print"/>
+					    	Imprimir PDF
+					   		<p:printer target="documentPreview" />
+						</p:commandLink>
+			        	<ui:include src="/module/moduleDocPrint.xhtml" >
+			        		<ui:param name="htmlPage" value="#{adminDocumentoBean.htmlPage}" />
+			        		<ui:param name="btnPrint" value="true"/>
+			        		<ui:param name="btnSubmeter" value="false"/>
+			        	</ui:include> 
+			        </p:tab>
+			    </p:tabView>
+	   		</div>
+	   		<div class="col-md-2">
+	   			<table class="table table-bordered">
+                	<thead>
+	                    <tr>
+	                        <th>Option</th>
+	                        <th>Result</th>
+	                    </tr>
+      				</thead>
+                   	<tbody>
+                          <tr>
+                              <td>#</td>
+                              <td>H1</td>
+                          </tr>
+                          <tr>
+                              <td>##</td>
+                              <td>H2</td>
+                          </tr>
+                          <tr>
+                              <td>###</td>
+                              <td>H3</td>
+                          </tr>
+                          <tr>
+                              <td>####</td>
+                              <td>H3</td>
+                          </tr>
+                          <tr>
+                              <td>#####</td>
+                              <td>H4</td>
+                          </tr>
+                          <tr>
+                              <td>######</td>
+                              <td>H5</td>
+                          </tr>
+                          <tr>
+                              <td>#######</td>
+                              <td>H6</td>
+                          </tr>
+                          <tr>
+                              <td>*Italico*</td>
+                              <td><i>Italico</i></td>
+                          </tr>
+                          <tr>
+                              <td>`Destaque`</td>
+                              <td><code>Destaque</code></td>
+                          </tr>
+                          <tr>
+                              <td>**Negrito**</td>
+                              <td><strong>Negrito</strong></td>
+                          </tr>
+                          
+            		</tbody>
+         		</table>
+	   			&lt;
+	   			
+	   		</div>
+	   	</div>
+	   	
+		
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	@version     1.0.0
+	@author      Edivando J. Alves
+	@contact     edivando@j7ss.com ( http://www.j7ss.com )
+	
+	@copyright Copyright 2010 - 2016 J7 Smart Solutions, all rights reserved. 
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/layout/layoutPrivateDefault.xhtml">
+
+	<ui:param name="headerTitle" value="Dados do Estágio" />
+	<ui:param name="headerLink" value="alunoHome.html" />
+	
+	<ui:define name="title">IFCE Estágios - Estágios</ui:define>
+	<ui:define name="container">
+	
+		<p:outputPanel styleClass="alert alert-warning fade in" rendered="#{!loginBean.usuario.ativo}">
+			<button data-dismiss="alert" class="close close-sm" type="button">
+		        <i class="fa fa-times"></i>
+		    </button>
+		    <strong>Atenção!</strong> Seu email: '#{loginBean.usuario.email}' não foi confirmado, verifique seu email, e confirme.
+		</p:outputPanel>
+		
+		<p:outputPanel styleClass="alert alert-warning fade in" rendered="#{loginBean.usuario.aluno.statusInvalido}">
+			<button data-dismiss="alert" class="close close-sm" type="button">
+		        <i class="fa fa-times"></i>
+		    </button>
+		    <strong>Atenção!</strong> Seu cadastra não foi validado pela instituição, favor verificar e corrigir seus dados.
+		</p:outputPanel>
+	
+	
+		<p:outputPanel rendered="#{alunoHomeBean.grid}">
+			<p:commandLink styleClass="btn btn-info pull-right" rendered="false">
+				<i class="fa fa-plus"/>
+				Novo Estágio
+			</p:commandLink>
+	
+			<div class="row">
+				<ui:repeat var="vagaEstagio" value="#{alunoHomeBean.vagasEstagio}">
+					<div class="col-md-12">
+		                <section class="panel">
+		                    <div class="panel-body profile-information">
+								<div class="row">
+									<div class="col-md-9">
+			                     		<div class="profile-desk">
+			                        		<div class="row">
+			                        			<div class="col-md-7">
+			                        				<h1>#{vagaEstagio.aluno.usuario.nome}</h1>
+			                        				<p>
+			                        					<strong>Estagiário da Empresa:</strong> #{vagaEstagio.empresa.nome} 
+			                        					<br/>
+			                        					<strong>Email:</strong> #{vagaEstagio.empresa.email} 
+			                        					<br/>
+			                        					<strong>Telefone / Fax:</strong> #{vagaEstagio.empresa.telefone} / #{vagaEstagio.empresa.fax} 
+			                        					<br/>
+			                        					<strong>CNPJ:</strong> #{vagaEstagio.empresa.cnpj} 
+			                        					<br/>
+			                        					<strong>Site:</strong> #{vagaEstagio.empresa.site}
+			                        					<br/>
+			                        					<strong>Ramo de Atividade:</strong> #{vagaEstagio.empresa.ramoAtividade}
+			                        					<br/>
+			                        					<strong>Supervisor / Cargo / Telefone:</strong> #{vagaEstagio.empresaSupervisor.supervisor} 
+               								             /  #{vagaEstagio.empresaSupervisor.cargoSupervisor} / #{vagaEstagio.empresaSupervisor.telefoneSupervisor} 
+			                        					<br/>
+			                        					<strong>Endereço:</strong> #{vagaEstagio.empresa.endereco}, #{vagaEstagio.empresa.numero} 
+			                        					#{vagaEstagio.empresa.bairro} #{vagaEstagio.empresa.cidade} - #{vagaEstagio.empresa.uf} #{vagaEstagio.empresa.cep}
+			                        				</p>
+			                        			</div>
+			                        			<div class="col-md-5">
+			                        				<p>
+			                        					<strong>Vigência:</strong> De  
+			                        					<h:outputText value="#{vagaEstagio.vigenciaInicio}" >
+			                        						<f:convertDateTime pattern="dd/MM/yyyy"/>
+			                        					</h:outputText>
+			                        					até 
+			                        					<h:outputText value="#{vagaEstagio.vigenciaFim}" >
+			                        						<f:convertDateTime pattern="dd/MM/yyyy"/>
+			                        					</h:outputText>
+			                        					<br/>
+			                        					<strong>Turno: </strong>#{vagaEstagio.turno}
+			                        					<br/>
+			                        					<strong>Tipo de Estágio: </strong>#{vagaEstagio.type}
+			                        					<br/>
+			                        					<strong>Status: </strong>#{vagaEstagio.status}
+			                        					<br/>
+			                        					<strong>Valor da Bolsa: </strong>R$ #{vagaEstagio.remuneracao}
+			                        					<br/>
+			                        					<strong>Valor do Transporte: </strong>R$ #{vagaEstagio.valorTransporte}
+			                        				</p>
+			                        			</div>
+			                        		</div>
+			                           </div>
+			                       	</div>
+			                       	<div class="col-md-3">
+			                           	<div class="profile-statistics">
+			                               	<h1>#{vagaEstagio.horasConcluidas} horas</h1>
+			                               	<p>Horas concluídas e validada pela instituição</p>
+			                               	<h1>#{vagaEstagio.duracaoEstagio} horas</h1>
+			                               	<p>Duração do Estágio</p>
+			                           	</div>
+			                       	</div>
+			                	</div>
+			             		<div class="row">
+									<div class="col-md-4">
+
+									</div>
+									<div class="col-md-8">
+										<p:commandLink actionListener="#{alunoHomeBean.documentos}" styleClass="btn btn-info pull-right col-md-3 btn-xs" 
+											update="@form" style="margin-right: 10px;" >
+											<f:setPropertyActionListener target="#{alunoHomeBean.vagaEstagio}" value="#{vagaEstagio}"/>
+											<i class="fa fa-file-text-o"/>
+											Documentos
+										</p:commandLink>
+			                       		<p:commandLink actionListener="#{alunoHomeBean.formEstagio}" styleClass="btn btn-info pull-right col-md-3 btn-xs" 
+			                       			update="@form" style="margin-right: 10px;" >
+			                       			<f:setPropertyActionListener target="#{alunoHomeBean.vagaEstagio}" value="#{vagaEstagio}"/>
+											<i class="fa fa-edit"/>
+											Editar
+										</p:commandLink>
+										<p:commandLink actionListener="#{alunoHomeBean.gridAtividade}" styleClass="btn btn-info pull-right col-md-3 btn-xs" 
+											update="@form" style="margin-right: 10px;">
+			                       			<f:setPropertyActionListener target="#{alunoHomeBean.vagaEstagio}" value="#{vagaEstagio}"/>
+											<i class="fa fa-wrench"/>
+											Atividades Diárias
+										</p:commandLink>
+									</div>
+								</div>
+		                    </div>
+		                </section>
+		            </div>
+				</ui:repeat>
+			</div>
+		</p:outputPanel>
+		
+		<p:panel rendered="#{alunoHomeBean.formEstagio}" styleClass="form-horizontal">
+			<p:focus />
+			<f:facet name="header">
+				<span class="lead">
+					<i class="fa #{headerIcon}"/> Dados do Estágio
+				</span>
+				<p:commandLink actionListener="#{alunoHomeBean.grid}" styleClass="btn btn-danger pull-right btn-sm" update="@form" >
+					<i class="fa fa-reply-all"/>
+					Back
+				</p:commandLink>
+				<p:commandLink  action="#{alunoHomeBean.save}" update="@form" styleClass="pull-right btn btn-info btn-sm"
+					style="margin-right: 10px;" >
+					<i class="fa fa-save" />
+					Salvar
+				</p:commandLink>
+			</f:facet>
+
+			<section class="panel">
+		      	<header class="panel-heading tab-bg-dark-navy-blue ">
+		        	<ul class="nav nav-tabs">
+		            	<li class="active"> <a data-toggle="tab" href="#vagaEstagio">Dados do Estágio</a></li>
+	            		<li> <a data-toggle="tab" href="#empresa">Empresa</a></li>
+	                	<li> <a data-toggle="tab" href="#empresaSupervisor">Supervisor</a></li>
+		             </ul>
+		         </header>
+	     		<div class="panel-body">
+	            	<div class="tab-content">
+	            		<div id="vagaEstagio" class="tab-pane active">
+	            			<ui:include src="/module/moduleAlunoVagaEstagio.xhtml">
+								<ui:param name="vagaEstagio" value="#{alunoHomeBean.vagaEstagio}"/>
+							</ui:include>
+	            		</div>
+	            		<div id="empresa" class="tab-pane">
+	            			<ui:include src="/module/moduleAlunoVagaEstagioEmpresa.xhtml">
+								<ui:param name="vagaEstagio" value="#{alunoHomeBean.vagaEstagio}"/>
+							</ui:include>
+	            		</div>
+	        			<div id="empresaSupervisor" class="tab-pane">
+	            			<ui:include src="/module/moduleAlunoVagaEstagioEmpresaSupervisor.xhtml">
+								<ui:param name="vagaEstagio" value="#{alunoHomeBean.vagaEstagio}"/>
+							</ui:include>
+	            		</div>
+	            	</div>
+	        	</div>
+	   		</section>
+		</p:panel>
+		
+		<p:outputPanel rendered="#{alunoHomeBean.documentos}">
+			<p:commandLink actionListener="#{alunoHomeBean.grid}" styleClass="btn btn-danger pull-right btn-sm" update="@form"
+            	style="margin-right: 10px;" >
+				<i class="fa fa-reply-all"/>
+				Back
+			</p:commandLink>
+			
+			<div class="timeline">
+		 		<article class="timeline-item alt">
+		             <div class="text-right">
+		                 <div class="time-show first">
+		                     <a href="#" class="btn btn-primary">Início</a>
+		                 </div>
+		             </div>
+		        </article>
+	        
+		        <ui:repeat var="doc" varStatus="var" value="#{alunoHomeBean.docVagaEstagio}">
+			      	<article class="timeline-item #{var.index % 2 == 0 ? 'alt' : ''}">
+						<div class="timeline-desk">
+			                 <div class="panel">
+			                     <div class="panel-body">
+			                         <span class="arrow-alt"></span>
+			                         <span class="timeline-icon #{doc.status.cor}">
+			                             <i class="fa #{doc.status.icon}"></i>
+			                         </span>  
+			                         <h1 class="#{doc.status.cor}">
+			                         	<p:commandLink actionListener="#{alunoHomeBean.documentoView}" update="@form">
+			                         		<f:setPropertyActionListener target="#{alunoHomeBean.documentoVagaEstagio}" value="#{doc}"/>
+			                         		#{doc.documento.titulo}
+			                         	</p:commandLink>
+			                         </h1>
+			                         <p>#{doc.status.titulo}</p>
+			                         <hr style="margin-top: 0px;"/>
+			                         <p> #{doc.documento.descricao} </p>
+			                         <hr/>
+			                         <ui:repeat var="msg" value="#{doc.documentoAlunoMessages}">
+			                         	<div class="text-center">
+				                         	<strong>
+			                         			#{msg.usuario.nome} em:   
+				                         		<h:outputText value="#{msg.date}">
+				                         			<f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+				                         		</h:outputText>
+				                         	</strong>
+				                         </div>
+			                         	<p style="margin-bottom: 25px;">#{msg.message}</p>
+			                         </ui:repeat>
+			                         
+			                         <p:inputText styleClass="col-md-12" placeholder="Duvidas sobre este documento" rendered="false"/>
+			             		</div>
+			      			</div>
+			   			</div>
+					</article>
+		        </ui:repeat>
+			</div>
+		</p:outputPanel>
+		
+		<p:outputPanel rendered="#{alunoHomeBean.gridAtividade}">
+			<div class="row" >
+				<div class="col-md-12">
+					<p:commandLink actionListener="#{alunoHomeBean.grid}" styleClass="btn btn-danger pull-right btn-sm" update="@form"
+		            	style="margin-right: 10px;" >
+						<i class="fa fa-reply-all"/>
+						Back
+					</p:commandLink>
+				</div>
+			</div>
+		</p:outputPanel>
+		<p:dataTable id="tableAtividadeDiaria" var="atividadeDiaria" value="#{alunoHomeBean.vagaEstagio.atividadesDiaria}" 
+			paginator="true" rows="20" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			emptyMessage="Nenhuma atividade cadastrada!" rendered="#{alunoHomeBean.gridAtividade}" resizableColumns="true" paginatorPosition="top">
+		
+			<p:column width="100" styleClass="text-center" >
+				<f:facet name="header">
+					<p:commandLink update="@form" actionListener="#{alunoHomeBean.formAtividade}" styleClass="btn btn-primary">
+						<f:setPropertyActionListener target="#{alunoHomeBean.atividadeDiaria}" value=""/>
+						<i class="fa fa-plus" />
+			 			Novo
+					</p:commandLink>
+				</f:facet>
+			
+ 				<p:commandLink update="@form" actionListener="#{alunoHomeBean.formAtividade}" styleClass="btn btn-white" >
+		 			<f:setPropertyActionListener target="#{alunoHomeBean.atividadeDiaria}" value="#{atividadeDiaria}"/>
+		 			<i class="fa fa-edit text-info" />
+				</p:commandLink>
+				&nbsp;
+				<p:commandLink actionListener="#{alunoHomeBean.removeAtividadeDiaria(atividadeDiaria)}" update="@form" styleClass="btn btn-white" >
+					<i class="fa fa-trash-o text-danger" />
+			        <p:confirm header="Confime" message="Deseja realmente exlcuir?" icon="ui-icon-alert" />
+			    </p:commandLink>
+ 
+			</p:column>
+			<p:column headerText="Status" width="70" styleClass="text-center">
+				#{atividadeDiaria.status}
+			</p:column>
+			<p:column headerText="Data" width="150" styleClass="text-center">
+				<h:outputText value="#{atividadeDiaria.date}" >
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</p:column>
+			<p:column headerText="Horas" width="70" styleClass="text-center">
+				#{atividadeDiaria.quantidadeHoras}
+			</p:column>
+
+			<p:column headerText="Descrição">
+				#{atividadeDiaria.descricao}
+			</p:column>	
+		</p:dataTable>
+		
+		<p:panel id="formPanel" rendered="#{alunoHomeBean.formAtividade}" styleClass="form-horizontal">
+			<p:focus />
+			<f:facet name="header">
+				<span class="lead">
+					<i class="fa #{headerIcon}"/> Atividades Diária do Estágio
+				</span>
+				<p:commandLink  action="#{alunoHomeBean.gridAtividade}" update=":formAll" styleClass="pull-right btn btn-danger btn-sm" immediate="true" >
+					<i class="fa fa-reply-all" />
+					Back
+				</p:commandLink>
+				<p:commandLink  action="#{alunoHomeBean.saveAtividadeDiaria}" update=":formAll" styleClass="pull-right btn btn-info btn-sm"
+					style="margin-right: 10px;">
+					<i class="fa fa-save" />
+					Salvar
+				</p:commandLink>
+			</f:facet>
+			
+			<div class="form-group">
+				<label for="inputDate" class="col-sm-2 control-label"><strong>Data:</strong></label>
+				<div class="col-sm-3">
+					<p:inputMask id="inputDate" styleClass="form-control" value="#{alunoHomeBean.atividadeDiaria.date}" mask="99/99/9999" 
+						required="true" requiredMessage="Item obrigatório!">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</p:inputMask>
+				</div>
+				<div class="col-sm-2">
+					<p:message for="inputDate"  />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputQuantHoras" class="col-sm-2 control-label"><strong>Quantidade de horas:</strong></label>
+				<div class="col-sm-3">
+					<h:selectOneMenu id="inputQuantHoras"  value="#{alunoHomeBean.atividadeDiaria.quantidadeHoras}" required="true" 
+						requiredMessage="Item obrigatório!" styleClass="form-control" style="height: 34px;">
+		                <f:selectItem itemLabel="0" itemValue="0" />
+		                <f:selectItem itemLabel="4" itemValue="4" />
+		                <f:selectItem itemLabel="5" itemValue="5" />
+		                <f:selectItem itemLabel="6" itemValue="6" />
+		            </h:selectOneMenu>
+				</div>
+				<div class="col-sm-2">
+					<p:message for="inputQuantHoras"  />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="inputDescricao" class="col-sm-2 control-label"><strong>Descrição:</strong></label>
+				<div class="col-sm-8">
+					<p:inputTextarea id="inputDescricao" value="#{alunoHomeBean.atividadeDiaria.descricao}" placeholder="Dscrição das atividades diárias" 
+						styleClass="form-control" required="true" requiredMessage="Item obrigatório!" rows="3"/>
+				</div>
+				<div class="col-sm-2">
+					<p:message for="inputDescricao"  />
+				</div>
+			</div>
+		
+		</p:panel>
+		
+		<p:panel rendered="#{alunoHomeBean.documentoView}" styleClass="form-horizontal" style="background-color: #f1f2f7;">
+			<f:facet name="header">
+				<span class="lead">
+					<i class="fa fac-doc"/> Documento
+				</span>
+				<p:commandLink actionListener="#{alunoHomeBean.documentos}" styleClass="btn btn-danger pull-right btn-sm" update="@form"
+	            	style="margin-right: 10px;" >
+					<i class="fa fa-reply-all"/>
+					Back
+				</p:commandLink>
+				<p:commandLink type="button" actionListener="#{alunoHomeBean.submeterAvaliacao}" styleClass="btn btn-primary pull-right btn-sm col-md-2" 
+					rendered="#{alunoHomeBean.disponivel}"  style="margin-right: 10px;" update="@form" >
+			   		<i class="fa fa-send"/>
+			    	Submeter para Avaliação
+				</p:commandLink>
+				&nbsp;
+				<p:commandLink type="button" styleClass="btn btn-warning pull-right btn-sm col-md-2" rendered="#{alunoHomeBean.disponivelDownload}"
+					style="margin-right: 10px;" update="@form">
+			   		<i class="fa fa-print"/>
+			    	Imprimir PDF
+			   		<p:printer target="documentPreview" />
+				</p:commandLink>
+			</f:facet>
+
+			<ui:include src="/module/moduleDocPrint.xhtml" >
+	      		<ui:param name="htmlPage" value="#{alunoHomeBean.docPage}" />
+	      		<ui:param name="btnSubmeterAvaliacao" value="#{alunoHomeBean.documentoVagaEstagio.statusDisponivel}"/>
+	      	</ui:include> 
+		</p:panel>
+
+		
+
+	</ui:define>
+</ui:composition>
+</html>

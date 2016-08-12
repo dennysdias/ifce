@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	@version     1.0.0
+	@author      Edivando J. Alves
+	@contact     edivando@j7ss.com ( http://www.j7ss.com )
+	
+	@copyright Copyright 2010 - 2016 J7 Smart Solutions, all rights reserved. 
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+
+	<div class="form-group">
+		<label for="inputEndereco" class="col-sm-2 control-label"><strong>Endereço:</strong></label>
+		<div class="col-sm-8">
+			<p:inputText id="inputEndereco" value="#{aluno.endereco}" placeholder="Rua..." styleClass="form-control"
+				disabled="#{disabled}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputNumero" class="col-sm-2 control-label"><strong>Número:</strong></label>
+		<div class="col-sm-2">
+			<p:inputText id="inputNumero" value="#{aluno.numero}" placeholder="Número" styleClass="form-control"
+				disabled="#{disabled}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputComplemento" class="col-sm-2 control-label"><strong>Complemento:</strong></label>
+		<div class="col-sm-6">
+			<p:inputText id="inputComplemento" value="#{aluno.complemento}" placeholder="Apt..." 
+				styleClass="form-control"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputBairro" class="col-sm-2 control-label"><strong>Bairro:</strong></label>
+		<div class="col-sm-4">
+			<p:inputText id="inputBairro" value="#{aluno.bairro}" placeholder="Bairro..." styleClass="form-control" 
+				disabled="#{disabled}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputCidade" class="col-sm-2 control-label"><strong>Cidade:</strong></label>
+		<div class="col-sm-4">
+			<p:inputText id="inputCidade" value="#{aluno.cidade}" placeholder="Cidade" styleClass="form-control"
+				 disabled="#{disabled}"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="inputUF" class="col-sm-2 control-label"><strong>UF:</strong></label>
+		<div class="col-sm-3">
+			<ui:include src="/module/moduleSelectOneEstadosBrasil.xhtml">
+				<ui:param name="value" value="#{aluno.uf}"/>
+				<ui:param name="disabled" value="#{disabled}"/>
+				<ui:param name="id" value="aluno"/>
+			</ui:include>
+		</div>
+	</div>
+		<div class="form-group">
+		<label for="inputCEP" class="col-sm-2 control-label"><strong>CEP:</strong></label>
+		<div class="col-sm-3">
+			<p:inputMask id="inputCEP" value="#{aluno.cep}" placeholder="CEP" styleClass="form-control" mask="99.999-999"
+				disabled="#{disabled}"/>
+		</div>
+	</div>
+
+</ui:composition>
+</html>
